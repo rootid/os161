@@ -1,0 +1,47 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..7b68c8d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,8 @@
++build
++.depend
++/defs.mk
++kern/compile/
++user/testbin/randcall/calls.c
++cscope.out
++tags
++asst.py
+diff --git a/kern/include/synch.h b/kern/include/synch.h
+index ac3714b..f7ca8e7 100644
+--- a/kern/include/synch.h
++++ b/kern/include/synch.h
+@@ -47,6 +47,7 @@ struct semaphore {
+         char *sem_name;
+ 	struct wchan *sem_wchan;
+ 	struct spinlock sem_lock;
++	//shared counter of semaphore
+         volatile int sem_count;
+ };
+ 
+diff --git a/kern/startup/main.c b/kern/startup/main.c
+index be4c4b8..44ee095 100644
+--- a/kern/startup/main.c
++++ b/kern/startup/main.c
+@@ -29,6 +29,7 @@
+ 
+ /*
+  * Main.
++ * Username : vikramsi@buffalo.edu
+  */
+ 
+ #include <types.h>
+@@ -100,7 +101,7 @@ boot(void)
+ 	kprintf("%s", harvard_copyright);
+ 	kprintf("\n");
+ 
+-	kprintf("Put-your-group-name-here's system version %s (%s #%d)\n", 
++	kprintf("Pandhari's system version %s (%s #%d)\n", 
+ 		GROUP_VERSION, buildconfig, buildversion);
+ 	kprintf("\n");
+ 
