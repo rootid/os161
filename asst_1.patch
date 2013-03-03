@@ -1,0 +1,1223 @@
+diff --git a/.cproject b/.cproject
+new file mode 100644
+index 0000000..bbdc9fe
+--- /dev/null
++++ b/.cproject
+@@ -0,0 +1,61 @@
++<?xml version="1.0" encoding="UTF-8" standalone="no"?>
++<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
++	<storageModule moduleId="org.eclipse.cdt.core.settings">
++		<cconfiguration id="0.386873840">
++			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="0.386873840" moduleId="org.eclipse.cdt.core.settings" name="ASST1">
++				<externalSettings/>
++				<extensions>
++					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
++					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
++					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
++					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
++					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
++					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
++				</extensions>
++			</storageModule>
++			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
++				<configuration artifactName="src" buildProperties="" description="Threading" id="0.386873840" name="ASST1" parent="org.eclipse.cdt.build.core.prefbase.cfg">
++					<folderInfo id="0.386873840." name="/" resourcePath="">
++						<toolChain id="org.eclipse.cdt.build.core.prefbase.toolchain.1338352555" name="No ToolChain" resourceTypeBasedDiscovery="false" superClass="org.eclipse.cdt.build.core.prefbase.toolchain">
++							<targetPlatform id="org.eclipse.cdt.build.core.prefbase.toolchain.1338352555.811212052" name=""/>
++							<builder buildPath="${workspace_loc:/src}/kern/compile/ASST1" command="bmake" id="org.eclipse.cdt.build.core.settings.default.builder.1846006984" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
++							<tool id="org.eclipse.cdt.build.core.settings.holder.libs.145635071" name="holder for library settings" superClass="org.eclipse.cdt.build.core.settings.holder.libs"/>
++							<tool id="org.eclipse.cdt.build.core.settings.holder.1000159271" name="Assembly" superClass="org.eclipse.cdt.build.core.settings.holder">
++								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1677884193" languageId="org.eclipse.cdt.core.assembly" languageName="Assembly" sourceContentType="org.eclipse.cdt.core.asmSource" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
++							</tool>
++							<tool id="org.eclipse.cdt.build.core.settings.holder.205714357" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
++								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1249359052" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
++							</tool>
++							<tool id="org.eclipse.cdt.build.core.settings.holder.1612316521" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
++								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.758657951" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
++									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/src/kern/compile/ASST1/includelinks}&quot;"/>
++								</option>
++								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1114292344" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
++							</tool>
++						</toolChain>
++					</folderInfo>
++				</configuration>
++			</storageModule>
++			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
++		</cconfiguration>
++	</storageModule>
++	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
++		<project id="src.null.488225801" name="src"/>
++	</storageModule>
++	<storageModule moduleId="scannerConfiguration">
++		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
++		<scannerConfigBuildInfo instanceId="0.386873840">
++			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
++		</scannerConfigBuildInfo>
++	</storageModule>
++	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
++	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
++	<storageModule moduleId="refreshScope" versionNumber="2">
++		<configuration configurationName="Default">
++			<resource resourceType="PROJECT" workspacePath="/src"/>
++		</configuration>
++		<configuration configurationName="ASST1">
++			<resource resourceType="PROJECT" workspacePath="/src"/>
++		</configuration>
++	</storageModule>
++</cproject>
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..7b68c8d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,8 @@
++build
++.depend
++/defs.mk
++kern/compile/
++user/testbin/randcall/calls.c
++cscope.out
++tags
++asst.py
+diff --git a/.project b/.project
+new file mode 100644
+index 0000000..00d2257
+--- /dev/null
++++ b/.project
+@@ -0,0 +1,26 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<projectDescription>
++	<name>src</name>
++	<comment></comment>
++	<projects>
++	</projects>
++	<buildSpec>
++		<buildCommand>
++			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
++			<triggers>clean,full,incremental,</triggers>
++			<arguments>
++			</arguments>
++		</buildCommand>
++		<buildCommand>
++			<name>org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder</name>
++			<triggers>full,incremental,</triggers>
++			<arguments>
++			</arguments>
++		</buildCommand>
++	</buildSpec>
++	<natures>
++		<nature>org.eclipse.cdt.core.cnature</nature>
++		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
++		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
++	</natures>
++</projectDescription>
+diff --git a/.settings/org.eclipse.cdt.codan.core.prefs b/.settings/org.eclipse.cdt.codan.core.prefs
+new file mode 100644
+index 0000000..d1c7b01
+--- /dev/null
++++ b/.settings/org.eclipse.cdt.codan.core.prefs
+@@ -0,0 +1,67 @@
++eclipse.preferences.version=1
++org.eclipse.cdt.codan.checkers.errnoreturn=Warning
++org.eclipse.cdt.codan.checkers.errnoreturn.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},implicit\=>false}
++org.eclipse.cdt.codan.checkers.errreturnvalue=Error
++org.eclipse.cdt.codan.checkers.errreturnvalue.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.checkers.noreturn=Error
++org.eclipse.cdt.codan.checkers.noreturn.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},implicit\=>false}
++org.eclipse.cdt.codan.internal.checkers.AbstractClassCreation=Error
++org.eclipse.cdt.codan.internal.checkers.AbstractClassCreation.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.AmbiguousProblem=Error
++org.eclipse.cdt.codan.internal.checkers.AmbiguousProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.AssignmentInConditionProblem=Warning
++org.eclipse.cdt.codan.internal.checkers.AssignmentInConditionProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.AssignmentToItselfProblem=Error
++org.eclipse.cdt.codan.internal.checkers.AssignmentToItselfProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.CaseBreakProblem=Warning
++org.eclipse.cdt.codan.internal.checkers.CaseBreakProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},no_break_comment\=>"no break",last_case_param\=>true,empty_case_param\=>false}
++org.eclipse.cdt.codan.internal.checkers.CatchByReference=Warning
++org.eclipse.cdt.codan.internal.checkers.CatchByReference.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},unknown\=>false,exceptions\=>()}
++org.eclipse.cdt.codan.internal.checkers.CircularReferenceProblem=Error
++org.eclipse.cdt.codan.internal.checkers.CircularReferenceProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.ClassMembersInitialization=Warning
++org.eclipse.cdt.codan.internal.checkers.ClassMembersInitialization.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},skip\=>true}
++org.eclipse.cdt.codan.internal.checkers.FieldResolutionProblem=Error
++org.eclipse.cdt.codan.internal.checkers.FieldResolutionProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.FunctionResolutionProblem=Error
++org.eclipse.cdt.codan.internal.checkers.FunctionResolutionProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.InvalidArguments=Error
++org.eclipse.cdt.codan.internal.checkers.InvalidArguments.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.InvalidTemplateArgumentsProblem=Error
++org.eclipse.cdt.codan.internal.checkers.InvalidTemplateArgumentsProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.LabelStatementNotFoundProblem=Error
++org.eclipse.cdt.codan.internal.checkers.LabelStatementNotFoundProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.MemberDeclarationNotFoundProblem=Error
++org.eclipse.cdt.codan.internal.checkers.MemberDeclarationNotFoundProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.MethodResolutionProblem=Error
++org.eclipse.cdt.codan.internal.checkers.MethodResolutionProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.NamingConventionFunctionChecker=-Info
++org.eclipse.cdt.codan.internal.checkers.NamingConventionFunctionChecker.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},pattern\=>"^[a-z]",macro\=>true,exceptions\=>()}
++org.eclipse.cdt.codan.internal.checkers.NonVirtualDestructorProblem=Warning
++org.eclipse.cdt.codan.internal.checkers.NonVirtualDestructorProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.OverloadProblem=Error
++org.eclipse.cdt.codan.internal.checkers.OverloadProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.RedeclarationProblem=Error
++org.eclipse.cdt.codan.internal.checkers.RedeclarationProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.RedefinitionProblem=Error
++org.eclipse.cdt.codan.internal.checkers.RedefinitionProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.ReturnStyleProblem=-Warning
++org.eclipse.cdt.codan.internal.checkers.ReturnStyleProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.ScanfFormatStringSecurityProblem=-Warning
++org.eclipse.cdt.codan.internal.checkers.ScanfFormatStringSecurityProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.StatementHasNoEffectProblem=Warning
++org.eclipse.cdt.codan.internal.checkers.StatementHasNoEffectProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},macro\=>true,exceptions\=>()}
++org.eclipse.cdt.codan.internal.checkers.SuggestedParenthesisProblem=Warning
++org.eclipse.cdt.codan.internal.checkers.SuggestedParenthesisProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},paramNot\=>false}
++org.eclipse.cdt.codan.internal.checkers.SuspiciousSemicolonProblem=Warning
++org.eclipse.cdt.codan.internal.checkers.SuspiciousSemicolonProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},else\=>false,afterelse\=>false}
++org.eclipse.cdt.codan.internal.checkers.TypeResolutionProblem=Error
++org.eclipse.cdt.codan.internal.checkers.TypeResolutionProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
++org.eclipse.cdt.codan.internal.checkers.UnusedFunctionDeclarationProblem=Warning
++org.eclipse.cdt.codan.internal.checkers.UnusedFunctionDeclarationProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},macro\=>true}
++org.eclipse.cdt.codan.internal.checkers.UnusedStaticFunctionProblem=Warning
++org.eclipse.cdt.codan.internal.checkers.UnusedStaticFunctionProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},macro\=>true}
++org.eclipse.cdt.codan.internal.checkers.UnusedVariableDeclarationProblem=Warning
++org.eclipse.cdt.codan.internal.checkers.UnusedVariableDeclarationProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true},macro\=>true,exceptions\=>("@(\#)","$Id")}
++org.eclipse.cdt.codan.internal.checkers.VariableResolutionProblem=Error
++org.eclipse.cdt.codan.internal.checkers.VariableResolutionProblem.params={launchModes\=>{RUN_ON_FULL_BUILD\=>true,RUN_ON_INC_BUILD\=>true,RUN_ON_FILE_OPEN\=>false,RUN_ON_FILE_SAVE\=>false,RUN_AS_YOU_TYPE\=>true,RUN_ON_DEMAND\=>true}}
+diff --git a/.settings/org.eclipse.cdt.core.prefs b/.settings/org.eclipse.cdt.core.prefs
+new file mode 100644
+index 0000000..dced79c
+--- /dev/null
++++ b/.settings/org.eclipse.cdt.core.prefs
+@@ -0,0 +1,6 @@
++eclipse.preferences.version=1
++environment/project/0.386873840/append=true
++environment/project/0.386873840/appendContributed=true
++environment/project/0.386873840/toolchain/delimiter=\:
++environment/project/0.386873840/toolchain/operation=append
++environment/project/0.386873840/toolchain/value=/home/trinity/os161/tools/bin/
+diff --git a/asst_0.patch b/asst_0.patch
+new file mode 100644
+index 0000000..366ee07
+--- /dev/null
++++ b/asst_0.patch
+@@ -0,0 +1,47 @@
++diff --git a/.gitignore b/.gitignore
++new file mode 100644
++index 0000000..7b68c8d
++--- /dev/null
+++++ b/.gitignore
++@@ -0,0 +1,8 @@
+++build
+++.depend
+++/defs.mk
+++kern/compile/
+++user/testbin/randcall/calls.c
+++cscope.out
+++tags
+++asst.py
++diff --git a/kern/include/synch.h b/kern/include/synch.h
++index ac3714b..f7ca8e7 100644
++--- a/kern/include/synch.h
+++++ b/kern/include/synch.h
++@@ -47,6 +47,7 @@ struct semaphore {
++         char *sem_name;
++ 	struct wchan *sem_wchan;
++ 	struct spinlock sem_lock;
+++	//shared counter of semaphore
++         volatile int sem_count;
++ };
++ 
++diff --git a/kern/startup/main.c b/kern/startup/main.c
++index be4c4b8..44ee095 100644
++--- a/kern/startup/main.c
+++++ b/kern/startup/main.c
++@@ -29,6 +29,7 @@
++ 
++ /*
++  * Main.
+++ * Username : vikramsi@buffalo.edu
++  */
++ 
++ #include <types.h>
++@@ -100,7 +101,7 @@ boot(void)
++ 	kprintf("%s", harvard_copyright);
++ 	kprintf("\n");
++ 
++-	kprintf("Put-your-group-name-here's system version %s (%s #%d)\n", 
+++	kprintf("Pandhari's system version %s (%s #%d)\n", 
++ 		GROUP_VERSION, buildconfig, buildversion);
++ 	kprintf("\n");
++ 
+diff --git a/build.py b/build.py
+new file mode 100755
+index 0000000..4549b1f
+--- /dev/null
++++ b/build.py
+@@ -0,0 +1,25 @@
++#!/usr/bin/env python
++import commands
++import os
++
++path = "/home/trinity/src/kern/conf"
++os.chdir(path)
++print os.getcwd()
++status, output = commands.getstatusoutput("./config ASST1") 
++"""
++  TODO : To use above option ./config ASST1 defoption <> option debug
++"""
++print status
++print output
++path = "/home/trinity/src/kern/compile/ASST1/"
++os.chdir(path)
++print os.getcwd()
++status, text = commands.getstatusoutput('bmake depend')
++print status
++print text
++status, text = commands.getstatusoutput('bmake')
++print status
++print text
++status, text = commands.getstatusoutput('bmake install')
++print status
++print text
+diff --git a/kern/include/synch.h b/kern/include/synch.h
+index ac3714b..1ca3888 100644
+--- a/kern/include/synch.h
++++ b/kern/include/synch.h
+@@ -47,6 +47,7 @@ struct semaphore {
+         char *sem_name;
+ 	struct wchan *sem_wchan;
+ 	struct spinlock sem_lock;
++	//shared counter of semaphore
+         volatile int sem_count;
+ };
+ 
+@@ -76,6 +77,13 @@ struct lock {
+         char *lk_name;
+         // add what you need here
+         // (don't forget to mark things volatile as needed)
++	//Pandhari: wchan is used to provide blocking behavior
++	//TO USE WCHAN : before wchan_sleep for blocking we have 
++	//to use wchan_lock 
++	//spinlock : provides atomicity
++	struct wchan *lk_wchan;
++	struct spinlock lk_th_lock;
++	volatile struct thread *lk_th_holder;
+ };
+ 
+ struct lock *lock_create(const char *name);
+@@ -115,6 +123,9 @@ struct cv {
+         char *cv_name;
+         // add what you need here
+         // (don't forget to mark things volatile as needed)
++	struct wchan *cv_wchan;
++	struct spinlock lk_cv;
++	
+ };
+ 
+ struct cv *cv_create(const char *name);
+@@ -143,11 +154,32 @@ void cv_broadcast(struct cv *cv, struct lock *lock);
+ 
+ struct rwlock {
+         char *rwlock_name;
++	struct semaphore *sem_reader;
++	struct semaphore *sem_read;
++	struct semaphore *sem_write;
++	struct semaphore *sem_writer;
++	volatile int reader_cnt;
++	volatile int writer_cnt; 
+ };
+ 
+ struct rwlock * rwlock_create(const char *);
+ void rwlock_destroy(struct rwlock *);
+ 
++/* Operations:
++ * rwlock_acquire_read  - acquire read and write lock
++ * 			  And increase writer count
++ * 
++ * rwlock_release_read  - release read lock and when 
++ * 			  read count is zero release 
++ * 			  write lock
++ *
++ * rwlock_acquire_write - acquire write lock and 
++ * 			  increase writer count
++ *
++ * rwlock_release_write - release write lock and 
++ * 			  decrease writer count
++ */
++
+ void rwlock_acquire_read(struct rwlock *);
+ void rwlock_release_read(struct rwlock *);
+ void rwlock_acquire_write(struct rwlock *);
+diff --git a/kern/include/test.h b/kern/include/test.h
+index 240d583..8e11a23 100644
+--- a/kern/include/test.h
++++ b/kern/include/test.h
+@@ -72,7 +72,14 @@ void turnleft(void *, unsigned long);
+ void turnright(void *, unsigned long);
+ void stoplight_init(void);
+ void stoplight_cleanup(void);
+-
++/*
++ * Helper functions to get directions
++ */
++int get_self(int);
++int get_self_front(int);
++int get_self_left(int);
++int get_self_cross(int);
++struct semaphore * get_dir_semaphore(int);
+ /*
+  * Test code.
+  */
+@@ -90,6 +97,7 @@ int semtest(int, char **);
+ int locktest(int, char **);
+ int cvtest(int, char **);
+ int cvtest2(int, char **);
++int rwtest(int, char **);
+ 
+ /* filesystem tests */
+ int fstest(int, char **);
+diff --git a/kern/include/thread.h b/kern/include/thread.h
+index 86706ca..82b26da 100644
+--- a/kern/include/thread.h
++++ b/kern/include/thread.h
+@@ -97,6 +97,9 @@ struct thread {
+ 	 * Exercise for the student: why is this material per-thread
+ 	 * rather than per-cpu or global?
+ 	 */
++	/***********
++	 * Pandhari : used in wchan_sleep,P() i.e in short, for blocking calls
++	 ********/
+ 	bool t_in_interrupt;		/* Are we in an interrupt? */
+ 	int t_curspl;			/* Current spl*() state */
+ 	int t_iplhigh_count;		/* # of times IPL has been raised */
+diff --git a/kern/startup/main.c b/kern/startup/main.c
+index be4c4b8..44ee095 100644
+--- a/kern/startup/main.c
++++ b/kern/startup/main.c
+@@ -29,6 +29,7 @@
+ 
+ /*
+  * Main.
++ * Username : vikramsi@buffalo.edu
+  */
+ 
+ #include <types.h>
+@@ -100,7 +101,7 @@ boot(void)
+ 	kprintf("%s", harvard_copyright);
+ 	kprintf("\n");
+ 
+-	kprintf("Put-your-group-name-here's system version %s (%s #%d)\n", 
++	kprintf("Pandhari's system version %s (%s #%d)\n", 
+ 		GROUP_VERSION, buildconfig, buildversion);
+ 	kprintf("\n");
+ 
+diff --git a/kern/startup/menu.c b/kern/startup/menu.c
+index 6c71551..91e3b82 100644
+--- a/kern/startup/menu.c
++++ b/kern/startup/menu.c
+@@ -450,6 +450,7 @@ static const char *testmenu[] = {
+ 	"[sy2] Lock test             (1)     ",
+ 	"[sy3] CV test               (1)     ",
+ 	"[sy5] CV test 2             (1)     ",
++	"[sy6] RW test               (1)     ",
+ 	"[sp1] Whalematching Driver  (1)     ",
+ 	"[sp2] Stoplight Driver      (1)     ",
+ 	"[fs1] Filesystem test               ",
+@@ -547,6 +548,7 @@ static struct {
+ 	{ "sy2",	locktest },
+ 	{ "sy3",	cvtest },
+ 	{ "sy5",	cvtest2 },
++	{ "sy6",	rwtest },
+ 	
+ #if OPT_SYNCHPROBS
+   /* synchronization problem tests */
+diff --git a/kern/synchprobs/problems.c b/kern/synchprobs/problems.c
+index 81d2f0e..32247e2 100644
+--- a/kern/synchprobs/problems.c
++++ b/kern/synchprobs/problems.c
+@@ -47,7 +47,29 @@
+ // functions will allow you to do local initialization. They are called at
+ // the top of the corresponding driver code.
+ 
++struct semaphore *mSemaphore;
++struct semaphore *fSemaphore;
++struct semaphore *kSemaphore;
++struct semaphore *mcSemaphore;
++struct semaphore *fcSemaphore;
++struct semaphore *kcSemaphore;
++struct semaphore *ecSemaphore;
++int male_cnt;
++int female_cnt;
++int matchmaker_cnt;
++
+ void whalemating_init() {
++  //create the semaphore
++  mSemaphore = sem_create("Male semaphore",1);
++  fSemaphore = sem_create("Female semaphore",1);
++  kSemaphore = sem_create("MM semaphore",1);
++  mcSemaphore = sem_create("Male enter semaphore",0);
++  fcSemaphore = sem_create("FeMale enter semaphore",0);
++  kcSemaphore = sem_create("MM enter semaphore",0);
++  ecSemaphore = sem_create("End semaphore",1);
++  male_cnt = 0;
++  female_cnt = 0;
++  matchmaker_cnt = 0;
+   return;
+ }
+ 
+@@ -55,22 +77,64 @@ void whalemating_init() {
+ // care if your problems leak memory, but if you do, use this to clean up.
+ 
+ void whalemating_cleanup() {
+-  return;
++	
++//	kfree(mSemaphore);
++//	kfree(fSemaphore); 
++//	kfree(kSemaphore);
++//	kfree(mcSemaphore); 
++//	kfree(fcSemaphore);
++//	kfree(kcSemaphore);
++//	kfree(ecSemaphore);  
++//
++//	mSemaphore  = NULL;
++//	fSemaphore  = NULL; 
++//	kSemaphore  = NULL;
++//	mcSemaphore = NULL;
++//	fcSemaphore = NULL;
++//	kcSemaphore = NULL;
++//	ecSemaphore = NULL;
++
++	return;
+ }
+ 
+ void
+ male(void *p, unsigned long which)
+ {
+-	struct semaphore * whalematingMenuSemaphore = (struct semaphore *)p;
+-  (void)which;
++  struct semaphore * whalematingMenuSemaphore = (struct semaphore *)p;
++  (void)which;	
++ 
++  P(mSemaphore);
+   
++  //provide atomic operation 
++  P(ecSemaphore);
+   male_start();
+-	// Implement this function 
++  V(ecSemaphore);
++  
++  V(whalematingMenuSemaphore);
++
++  //wait for female and matchmaker to start
++  V(mcSemaphore); 
++  V(mcSemaphore); 
++  P(fcSemaphore);
++  P(kcSemaphore);
++  
++  //provide atomic operation 
++  P(ecSemaphore);
++  male_cnt ++;
+   male_end();
++  V(ecSemaphore);
++ 
++  //wait for female and matchmaker to end
++  V(mcSemaphore);
++  V(mcSemaphore);
++  P(fcSemaphore);
++  P(kcSemaphore);
++ 
++ //if(male_cnt < 9) 
++  V(mSemaphore); 
+ 
+   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
+   // whalemating driver can return to the menu cleanly.
+-  V(whalematingMenuSemaphore);
+   return;
+ }
+ 
+@@ -80,13 +144,34 @@ female(void *p, unsigned long which)
+ 	struct semaphore * whalematingMenuSemaphore = (struct semaphore *)p;
+   (void)which;
+   
++  P(fSemaphore);
++  
++  P(ecSemaphore);
+   female_start();
+-	// Implement this function 
+-  female_end();
++  V(ecSemaphore);
+   
++  V(whalematingMenuSemaphore);
++
++  V(fcSemaphore); 
++  V(fcSemaphore); 
++  P(mcSemaphore);
++  P(kcSemaphore);
++  
++  P(ecSemaphore);
++  female_cnt++;
++  female_end();
++  V(ecSemaphore);
++
++  V(fcSemaphore); 
++  V(fcSemaphore); 
++  P(mcSemaphore);
++  P(kcSemaphore);
++ 
++  if(female_cnt <= 9)
++  V(fSemaphore);
++
+   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
+   // whalemating driver can return to the menu cleanly.
+-  V(whalematingMenuSemaphore);
+   return;
+ }
+ 
+@@ -96,13 +181,34 @@ matchmaker(void *p, unsigned long which)
+ 	struct semaphore * whalematingMenuSemaphore = (struct semaphore *)p;
+   (void)which;
+   
++  P(kSemaphore);
++
++  P(ecSemaphore);
+   matchmaker_start();
+-	// Implement this function 
++  V(ecSemaphore);
++
++  V(whalematingMenuSemaphore);
++
++  V(kcSemaphore); 
++  V(kcSemaphore); 
++  P(mcSemaphore);
++  P(fcSemaphore);
++  
++  P(ecSemaphore);
++  matchmaker_cnt ++;
+   matchmaker_end();
++  V(ecSemaphore);
++  
++  V(kcSemaphore); 
++  V(kcSemaphore); 
++  P(mcSemaphore);
++  P(fcSemaphore);
++
++  if(matchmaker_cnt <= 9)
++  V(kSemaphore); 
+   
+   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
+   // whalemating driver can return to the menu cleanly.
+-  V(whalematingMenuSemaphore);
+   return;
+ }
+ 
+@@ -137,7 +243,64 @@ matchmaker(void *p, unsigned long which)
+ // functions will allow you to do local initialization. They are called at
+ // the top of the corresponding driver code.
+ 
++struct semaphore *zeroSemaphore;
++struct semaphore *oneSemaphore;
++struct semaphore *twoSemaphore;
++struct semaphore *threeSemaphore;
++
++
++//helper functions
++
++int 
++get_self(int dir) {
++	//As modular is costlier operation,just return direction
++	return dir;
++}
++
++int 
++get_self_front(int dir) {
++	return (dir + 3) % 4;
++}
++int 
++get_self_left(int dir) {
++	return (dir + 1) % 4;
++}
++int 
++get_self_cross(int dir) {
++	return (dir + 2) % 4;
++}
++
++struct semaphore *
++get_dir_semaphore(int dir) {
++
++	if(0 ==  dir) {
++	  return  zeroSemaphore;  
++	}
++	else if(1 ==  dir) {
++	  return oneSemaphore;  
++	}
++	else if(2 ==  dir) {
++	  return  twoSemaphore;  
++	}
++	else if(3 ==  dir) {
++	  return  threeSemaphore;  
++	}
++	return NULL;
++
++}
++
++struct lock *lk_strt;
++struct lock *lk_lt;
++struct lock *lk_rt;
++
+ void stoplight_init() {
++  zeroSemaphore  = sem_create("zero",1);
++  oneSemaphore   = sem_create("one",1);
++  twoSemaphore   = sem_create("two",1);
++  threeSemaphore = sem_create("three",1);
++  lk_strt = lock_create("straight");
++  lk_lt = lock_create("left");
++  lk_rt = lock_create("right");
+   return;
+ }
+ 
+@@ -151,35 +314,81 @@ void stoplight_cleanup() {
+ void
+ gostraight(void *p, unsigned long direction)
+ {
+-	struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
+-  (void)direction;
++  struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
+   
+   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
+   // stoplight driver can return to the menu cleanly.
++  
++  // To go straight follow self,self_front
++  lock_acquire(lk_strt);
+   V(stoplightMenuSemaphore);
++  int iDir = (int)direction;
++  int x = get_self(iDir);	
++  int y = get_self_front(iDir);
++  struct semaphore * x_sem = get_dir_semaphore(x);
++  struct semaphore * y_sem = get_dir_semaphore(y);
++  P(x_sem);
++  inQuadrant(x);
++  P(y_sem);
++  inQuadrant(y);
++  V(x_sem);
++  leaveIntersection();
++  V(y_sem);
++  lock_release(lk_strt);
+   return;
+ }
+ 
+ void
+ turnleft(void *p, unsigned long direction)
+ {
+-	struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
+-  (void)direction;
++  struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
++  
+   
+   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
+   // stoplight driver can return to the menu cleanly.
++  
++  // To go left follow self,self_front,self_cross
++  lock_acquire(lk_lt);
+   V(stoplightMenuSemaphore);
++  int iDir = (int)direction;
++  int x = get_self(iDir);	
++  int y = get_self_front(iDir);
++  int z = get_self_cross(iDir);
++  struct semaphore * x_sem = get_dir_semaphore(x);
++  struct semaphore * y_sem = get_dir_semaphore(y);
++  struct semaphore * z_sem = get_dir_semaphore(z);
++  P(x_sem);
++  inQuadrant(x);
++  P(y_sem);
++  inQuadrant(y);
++  V(x_sem);
++  P(z_sem);
++  inQuadrant(z);
++  V(y_sem);
++  leaveIntersection();
++  V(z_sem);
++  lock_release(lk_lt);
+   return;
+ }
+ 
+ void
+ turnright(void *p, unsigned long direction)
+ {
+-	struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
+-  (void)direction;
+-
++  struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
++  
+   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
+   // stoplight driver can return to the menu cleanly.
++  
++  // To go right follow self
++  lock_acquire(lk_rt);
+   V(stoplightMenuSemaphore);
++  int iDir = (int)direction;
++  int x = get_self(iDir);	
++  struct semaphore * x_sem = get_dir_semaphore(x);
++  P(x_sem);
++  inQuadrant(x);
++  leaveIntersection();
++  V(x_sem);
++  lock_release(lk_rt);
+   return;
+ }
+diff --git a/kern/test/synchtest.c b/kern/test/synchtest.c
+index d072469..9d34cc2 100644
+--- a/kern/test/synchtest.c
++++ b/kern/test/synchtest.c
+@@ -41,6 +41,7 @@
+ #define NSEMLOOPS     63
+ #define NLOCKLOOPS    120
+ #define NCVLOOPS      5
++#define NRWLOOPS      4 
+ #define NTHREADS      32
+ 
+ static volatile unsigned long testval1;
+@@ -50,6 +51,7 @@ static struct semaphore *testsem;
+ static struct lock *testlock;
+ static struct cv *testcv;
+ static struct semaphore *donesem;
++static struct rwlock *testrwlock;
+ 
+ static
+ void
+@@ -79,6 +81,12 @@ inititems(void)
+ 			panic("synchtest: sem_create failed\n");
+ 		}
+ 	}
++	if (testrwlock==NULL) {
++		testrwlock = rwlock_create("testrw");
++		if (testrwlock == NULL) {
++			panic("rwlocktest : rw_lock failed\n");
++		}
++	}
+ }
+ 
+ static
+@@ -114,7 +122,16 @@ semtest(int nargs, char **args)
+ 	P(testsem);
+ 	P(testsem);
+ 	kprintf("ok\n");
+-
++	/***********
++	 * Pandhari : Here threads are created but its 
++	 * execution is controlled by the P and V
++	 * As in this excution of thread there exists critical 
++	 * section controlled by the P(testsem) and V(testsem)
++	 * See the execution flow of <semtestthread>
++	 * See documentation 
++	 * Intrathread synchronization : synchronization inside single thread.
++	 * Interthread synchronization : synchronization among threads.
++	 **************/	
+ 	for (i=0; i<NTHREADS; i++) {
+ 		result = thread_fork("semtest", semtestthread, NULL, i, NULL);
+ 		if (result) {
+@@ -327,6 +344,67 @@ cvtest2thread(void *junk, unsigned long num)
+ 	V(donesem);
+ }
+ 
++static
++void
++rwtestthread(void *junk,unsigned long num) {
++	int i;
++	(void) junk;
++	int cnt = 0;
++	for (i=0; i<NRWLOOPS; i++) {
++		
++		testval1 = i % 3;
++
++		if(testval1 == 0) {
++			rwlock_acquire_read(testrwlock);
++			kprintf("Thread %2lu: reader : count value %d \n",num,cnt);
++			rwlock_release_read(testrwlock);
++		} 
++		else {		
++			rwlock_acquire_write(testrwlock);
++			cnt = cnt + 1;
++			kprintf("Thread %2lu: writer : count value %d \n",num,cnt);
++			rwlock_release_write(testrwlock);
++		}
++
++	
++	}
++
++	kprintf("\n");
++	V(donesem);
++
++}
++
++int 
++rwtest(int nargs, char **args) {
++
++	(void)nargs;
++	(void)args;
++	int i,result;	
++
++	inititems();
++
++	kprintf("Starting RW test ....\n");
++	kprintf("Reader will read the count value while writer will write value \n");
++
++	for (i=0; i<NTHREADS; i++) {
++		result = thread_fork("rwtest", rwtestthread , NULL, i,
++				      NULL);
++		if (result) {
++			panic("rwtest: thread_fork failed: %s\n",
++			      strerror(result));
++		}
++	}
++	for (i=0; i<NTHREADS; i++) {
++		P(donesem);
++	}
++
++	kprintf("RW test done\n");
++
++	return 0;
++
++
++}
++
+ int
+ cvtest2(int nargs, char **args)
+ {
+diff --git a/kern/thread/spinlock.c b/kern/thread/spinlock.c
+index 06df2f0..361b6cd 100644
+--- a/kern/thread/spinlock.c
++++ b/kern/thread/spinlock.c
+@@ -78,6 +78,12 @@ spinlock_acquire(struct spinlock *lk)
+ 
+ 	/* this must work before curcpu initialization */
+ 	if (CURCPU_EXISTS()) {
++		//Pandhari : This block of code is to restrict use of spinlock_acquire() 
++		//1.in signal like V(),cv_signal(),lock_release()
++		//2.Before using it consider about intrathread synchronization 
++		//because in this scenario you have CPU with you 
++		//This situation like person trying to cut branch
++		//by sitting on the same branch.
+ 		mycpu = curcpu->c_self;
+ 		if (lk->lk_holder == mycpu) {
+ 			panic("Deadlock on spinlock %p\n", lk);
+@@ -98,7 +104,7 @@ spinlock_acquire(struct spinlock *lk)
+ 		 * previously unheld and we now own it. If it was 1,
+ 		 * we don't.
+ 		 */
+-		if (spinlock_data_get(&lk->lk_lock) != 0) {
++		if (spinlock_data_get(&lk->lk_lock) != 0) { //1 lock is not available ,0 lock is available acquire it
+ 			continue;
+ 		}
+ 		if (spinlock_data_testandset(&lk->lk_lock) != 0) {
+diff --git a/kern/thread/synch.c b/kern/thread/synch.c
+index 9a7468c..1b37a28 100644
+--- a/kern/thread/synch.c
++++ b/kern/thread/synch.c
+@@ -101,6 +101,7 @@ P(struct semaphore *sem)
+         KASSERT(curthread->t_in_interrupt == false);
+ 
+ 	spinlock_acquire(&sem->sem_lock);
++	//Pandhari : Do remember it is while loop not if loop
+         while (sem->sem_count == 0) {
+ 		/*
+ 		 * Bridge to the wchan lock, so if someone else comes
+@@ -116,7 +117,7 @@ P(struct semaphore *sem)
+ 		 * strict ordering. Too bad. :-)
+ 		 *
+ 		 * Exercise: how would you implement strict FIFO
+-		 * ordering?
++		 * ordering? To impose fifo ordering we might put spinlock_release at the end
+ 		 */
+ 		wchan_lock(sem->sem_wchan);
+ 		spinlock_release(&sem->sem_lock);
+@@ -164,7 +165,15 @@ lock_create(const char *name)
+         }
+         
+         // add stuff here as needed
+-        
++	lock->lk_th_holder = NULL;
++	//we can't initilize the holder as this routine might be created by some other thread eg.  0x80033fe0 "<boot #0>"
++	spinlock_init(&lock->lk_th_lock);
++	lock->lk_wchan = wchan_create(lock->lk_name);
++	if (lock->lk_wchan == NULL) {
++		kfree(lock->lk_name);
++		kfree(lock);
++		return NULL;
++	}
+         return lock;
+ }
+ 
+@@ -175,6 +184,10 @@ lock_destroy(struct lock *lock)
+ 
+         // add stuff here as needed
+         
++	spinlock_cleanup(&lock->lk_th_lock);
++	if(lock->lk_wchan != NULL)
++		wchan_destroy(lock->lk_wchan);
++
+         kfree(lock->lk_name);
+         kfree(lock);
+ }
+@@ -184,7 +197,25 @@ lock_acquire(struct lock *lock)
+ {
+         // Write this
+ 
+-        (void)lock;  // suppress warning until code gets written
++       // (void)lock;  // suppress warning until code gets 	
++	KASSERT(lock != NULL);	
++
++	KASSERT(curthread->t_in_interrupt == false);
++
++	spinlock_acquire(&lock->lk_th_lock);
++	//Avoid self-recurrence lock
++	KASSERT(lock->lk_th_holder != curthread);	
++	//KASSERT(!lock_do_i_hold(lock));
++	while(NULL  != lock->lk_th_holder)	{
++		wchan_lock(lock->lk_wchan);
++		spinlock_release(&lock->lk_th_lock);
++                wchan_sleep(lock->lk_wchan);
++		spinlock_acquire(&lock->lk_th_lock);
++	}
++	KASSERT(lock->lk_th_holder == NULL);	
++	lock->lk_th_holder = curthread;
++	spinlock_release(&lock->lk_th_lock);
++
+ }
+ 
+ void
+@@ -192,7 +223,14 @@ lock_release(struct lock *lock)
+ {
+         // Write this
+ 
+-        (void)lock;  // suppress warning until code gets written
++        KASSERT(lock != NULL);
++	spinlock_acquire(&lock->lk_th_lock);
++	lock->lk_th_holder = NULL;
++	//KASSERT(lock->lk_th_holder != NULL);
++	wchan_wakeone(lock->lk_wchan);
++	spinlock_release(&lock->lk_th_lock);
++
++        //(void)lock;  // suppress warning until code gets written
+ }
+ 
+ bool
+@@ -200,9 +238,9 @@ lock_do_i_hold(struct lock *lock)
+ {
+         // Write this
+ 
+-        (void)lock;  // suppress warning until code gets written
+-
+-        return true; // dummy until code gets written
++	return (lock->lk_th_holder == curthread);
++       // (void)lock;  // suppress warning until code gets written
++       // return true; // dummy until code gets written
+ }
+ 
+ ////////////////////////////////////////////////////////////
+@@ -221,13 +259,20 @@ cv_create(const char *name)
+         }
+ 
+         cv->cv_name = kstrdup(name);
+-        if (cv->cv_name==NULL) {
++        if (cv->cv_name == NULL) {
+                 kfree(cv);
+                 return NULL;
+         }
+         
+         // add stuff here as needed
+-        
++       
++	cv->cv_wchan = wchan_create(cv->cv_name);
++	if(cv->cv_wchan == NULL) {
++		kfree(cv->cv_name);
++		kfree(cv);
++		return NULL;
++	}
++	spinlock_init(&cv->lk_cv);
+         return cv;
+ }
+ 
+@@ -237,8 +282,10 @@ cv_destroy(struct cv *cv)
+         KASSERT(cv != NULL);
+ 
+         // add stuff here as needed
+-        
+         kfree(cv->cv_name);
++	spinlock_cleanup(&cv->lk_cv);
++	if(cv->cv_wchan != NULL)
++		wchan_destroy(cv->cv_wchan);
+         kfree(cv);
+ }
+ 
+@@ -246,22 +293,134 @@ void
+ cv_wait(struct cv *cv, struct lock *lock)
+ {
+         // Write this
+-        (void)cv;    // suppress warning until code gets written
+-        (void)lock;  // suppress warning until code gets written
++       // (void)cv;    // suppress warning until code gets written
++       // (void)lock;  // suppress warning until code gets written
++
++	KASSERT(curthread->t_in_interrupt == false);
++	//KASSERT(lock->lk_th_holder == curthread);
++	lock_release(lock);
++	//spinlock_acquire(&cv->lk_cv);
++	wchan_lock(cv->cv_wchan);
++	//spinlock_release(&cv->lk_cv);
++	wchan_sleep(cv->cv_wchan);
++	//spinlock_acquire(&cv->lk_cv);
++	lock_acquire(lock);
++	//spinlock_release(&cv->lk_cv);
+ }
+ 
+ void
+ cv_signal(struct cv *cv, struct lock *lock)
+ {
+         // Write this
+-	(void)cv;    // suppress warning until code gets written
+-	(void)lock;  // suppress warning until code gets written
++	//(void)cv;    // suppress warning until code gets written
++	//(void)lock;  // suppress warning until code gets written
++
++	KASSERT(lock != NULL);	
++	KASSERT(cv != NULL);	
++	if(lock_do_i_hold(lock)) {
++		wchan_wakeone(cv->cv_wchan);		
++	}
+ }
+ 
+ void
+ cv_broadcast(struct cv *cv, struct lock *lock)
+ {
+ 	// Write this
+-	(void)cv;    // suppress warning until code gets written
+-	(void)lock;  // suppress warning until code gets written
++	//(void)cv;    // suppress warning until code gets written
++	//(void)lock;  // suppress warning until code gets written
++	KASSERT(lock != NULL);	
++	KASSERT(cv != NULL);	
++	
++	if(lock_do_i_hold(lock)) {
++		wchan_wakeall(cv->cv_wchan);		
++	}
++}
++
++
++struct rwlock * 
++rwlock_create(const char *name) {
++	struct rwlock *rwlock;
++	
++	rwlock = kmalloc(sizeof(struct rwlock));
++	if(rwlock == NULL) {
++		return NULL;	
++	}
++	rwlock->rwlock_name = kstrdup(name);
++	
++	if(rwlock->rwlock_name == NULL) {
++		kfree(rwlock);
++		return NULL;
++	}
++	rwlock->sem_reader = sem_create("reader",0);
++	rwlock->sem_read  = sem_create("reader unit",1);
++	rwlock->sem_write = sem_create("writer unit",1);
++	rwlock->sem_writer = sem_create("writer",1);
++
++	if (rwlock->sem_reader == NULL || 
++	    rwlock->sem_writer == NULL) {
++		kfree(rwlock);
++		return NULL;	
++	}
++	
++	rwlock->reader_cnt = 0;
++	rwlock->writer_cnt = 0;
++	return rwlock;
++}
++
++void rwlock_destroy(struct rwlock *rwlock ) {
++	
++	KASSERT(rwlock != NULL);
++	sem_destroy(rwlock->sem_reader);
++	sem_destroy(rwlock->sem_writer);
++	sem_destroy(rwlock->sem_read);
++	sem_destroy(rwlock->sem_write);
++	kfree(rwlock->rwlock_name);
++	kfree(rwlock);
++}
++
++void 
++rwlock_acquire_read(struct rwlock *rwlock ) {
++	//(void) rwlock;
++	//spinlock_acquire(&rwlock->lk_read_acq);
++	P(rwlock->sem_read); //To provide atomicity
++	if(rwlock->reader_cnt == 0) {
++		P(rwlock->sem_writer);
++		//If anybody is in the P and next thread try to use spinlock_acquire Deadlock exception occurs
++	}
++	if(rwlock->writer_cnt > 0) {
++  		P(rwlock->sem_reader);	
++	}
++	rwlock->reader_cnt++;
++	//spinlock_release(&rwlock->lk_read_acq);
++	V(rwlock->sem_read);
++}
++
++void 
++rwlock_release_read(struct rwlock *rwlock ) {
++	//(void) rwlock;
++	
++	//spinlock_acquire(&rwlock->lk_read_rel);
++	rwlock->reader_cnt--;	
++	if(rwlock->reader_cnt == 0) {
++		V(rwlock->sem_writer);
++	}
++	//spinlock_release(&rwlock->lk_read_rel);
++}
++
++void 
++rwlock_acquire_write(struct rwlock *rwlock ) {
++	//(void) rwlock;
++	//spinlock_acquire(&rwlock->lk_write);	
++	P(rwlock->sem_write);
++	rwlock->writer_cnt ++;	
++	P(rwlock->sem_writer);
++	V(rwlock->sem_write);
++	//spinlock_release(&rwlock->lk_write);	
++}
++
++void 
++rwlock_release_write(struct rwlock *rwlock ) {
++	//(void) rwlock;
++	V(rwlock->sem_writer);
++  	V(rwlock->sem_reader);	
+ }
+diff --git a/shortcuts.txt b/shortcuts.txt
+new file mode 100644
+index 0000000..13f310e
+--- /dev/null
++++ b/shortcuts.txt
+@@ -0,0 +1,4 @@
++Debug fast with :
++sys161 -w kernel "sy1;"
++To run only specific test cases
++sys161 kernel "tt1;q"
+diff --git a/user/testbin/psort/psort.c b/user/testbin/psort/psort.c
+index 9827466..78cb37c 100644
+--- a/user/testbin/psort/psort.c
++++ b/user/testbin/psort/psort.c
+@@ -186,6 +186,7 @@ complainx(const char *fmt, ...)
+ 
+ 	/* Write the message in one go so it's atomic */
+ 	unused = write(STDERR_FILENO, buf, strlen(buf));
++	(void) unused;
+ }
+ 
+ static
+@@ -203,6 +204,7 @@ complain(const char *fmt, ...)
+ 
+ 	/* Write the message in one go so it's atomic */
+ 	unused = write(STDERR_FILENO, buf, strlen(buf));
++	(void) unused;
+ }
+ 
+ ////////////////////////////////////////////////////////////
