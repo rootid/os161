@@ -72,7 +72,14 @@ void turnleft(void *, unsigned long);
 void turnright(void *, unsigned long);
 void stoplight_init(void);
 void stoplight_cleanup(void);
-
+/*
+ * Helper functions to get directions
+ */
+int get_self(int);
+int get_self_front(int);
+int get_self_left(int);
+int get_self_cross(int);
+struct semaphore * get_dir_semaphore(int);
 /*
  * Test code.
  */
@@ -90,6 +97,7 @@ int semtest(int, char **);
 int locktest(int, char **);
 int cvtest(int, char **);
 int cvtest2(int, char **);
+int rwtest(int, char **);
 
 /* filesystem tests */
 int fstest(int, char **);

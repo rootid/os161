@@ -77,10 +77,13 @@ struct lock {
         char *lk_name;
         // add what you need here
         // (don't forget to mark things volatile as needed)
-//	struct spinlock lk_sem_lock;
-//	struct semaphore *p_sem_lk; 
-//	struct spinlock lk_th_lock;
-//	struct thread *lk_th_holder;
+	//Pandhari: wchan is used to provide blocking behavior
+	//TO USE WCHAN : before wchan_sleep for blocking we have 
+	//to use wchan_lock 
+	//spinlock : provides atomicity
+	struct wchan *lk_wchan;
+	struct spinlock lk_th_lock;
+	volatile struct thread *lk_th_holder;
 };
 
 struct lock *lock_create(const char *name);
@@ -120,8 +123,8 @@ struct cv {
         char *cv_name;
         // add what you need here
         // (don't forget to mark things volatile as needed)
-	struct wchan *lk_wchan;
-	struct spinlock lk_lock;
+	struct wchan *cv_wchan;
+	struct spinlock lk_cv;
 	
 };
 
@@ -151,10 +154,31 @@ void cv_broadcast(struct cv *cv, struct lock *lock);
 
 struct rwlock {
         char *rwlock_name;
+	struct semaphore *sem_reader;
+	struct semaphore *sem_read;
+	struct semaphore *sem_write;
+	struct semaphore *sem_writer;
+	volatile int reader_cnt;
+	volatile int writer_cnt; 
 };
 
 struct rwlock * rwlock_create(const char *);
 void rwlock_destroy(struct rwlock *);
+
+/* Operations:
+ * rwlock_acquire_read  - acquire read and write lock
+ * 			  And increase writer count
+ * 
+ * rwlock_release_read  - release read lock and when 
+ * 			  read count is zero release 
+ * 			  write lock
+ *
+ * rwlock_acquire_write - acquire write lock and 
+ * 			  increase writer count
+ *
+ * rwlock_release_write - release write lock and 
+ * 			  decrease writer count
+ */
 
 void rwlock_acquire_read(struct rwlock *);
 void rwlock_release_read(struct rwlock *);

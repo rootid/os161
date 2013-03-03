@@ -41,6 +41,7 @@
 #define NSEMLOOPS     63
 #define NLOCKLOOPS    120
 #define NCVLOOPS      5
+#define NRWLOOPS      4 
 #define NTHREADS      32
 
 static volatile unsigned long testval1;
@@ -50,14 +51,14 @@ static struct semaphore *testsem;
 static struct lock *testlock;
 static struct cv *testcv;
 static struct semaphore *donesem;
+static struct rwlock *testrwlock;
 
 static
 void
 inititems(void)
 {
 	if (testsem==NULL) {
-		//testsem = sem_create("testsem", 2);
-		testsem = sem_create("testsem", 1);
+		testsem = sem_create("testsem", 2);
 		if (testsem == NULL) {
 			panic("synchtest: sem_create failed\n");
 		}
@@ -78,6 +79,12 @@ inititems(void)
 		donesem = sem_create("donesem", 0);
 		if (donesem == NULL) {
 			panic("synchtest: sem_create failed\n");
+		}
+	}
+	if (testrwlock==NULL) {
+		testrwlock = rwlock_create("testrw");
+		if (testrwlock == NULL) {
+			panic("rwlocktest : rw_lock failed\n");
 		}
 	}
 }
@@ -113,16 +120,24 @@ semtest(int nargs, char **args)
 	kprintf("Starting semaphore test...\n");
 	kprintf("If this hangs, it's broken: ");
 	P(testsem);
-	//P(testsem);
+	P(testsem);
 	kprintf("ok\n");
-	
+	/***********
+	 * Pandhari : Here threads are created but its 
+	 * execution is controlled by the P and V
+	 * As in this excution of thread there exists critical 
+	 * section controlled by the P(testsem) and V(testsem)
+	 * See the execution flow of <semtestthread>
+	 * See documentation 
+	 * Intrathread synchronization : synchronization inside single thread.
+	 * Interthread synchronization : synchronization among threads.
+	 **************/	
 	for (i=0; i<NTHREADS; i++) {
 		result = thread_fork("semtest", semtestthread, NULL, i, NULL);
 		if (result) {
 			panic("semtest: thread_fork failed: %s\n", 
 			      strerror(result));
 		}
-	
 	}
 
 	for (i=0; i<NTHREADS; i++) {
@@ -132,7 +147,7 @@ semtest(int nargs, char **args)
 
 	/* so we can run it again */
 	V(testsem);
-	//V(testsem);
+	V(testsem);
 
 	kprintf("Semaphore test done.\n");
 	return 0;
@@ -327,6 +342,67 @@ cvtest2thread(void *junk, unsigned long num)
 		lock_release(testlock);
 	}
 	V(donesem);
+}
+
+static
+void
+rwtestthread(void *junk,unsigned long num) {
+	int i;
+	(void) junk;
+	int cnt = 0;
+	for (i=0; i<NRWLOOPS; i++) {
+		
+		testval1 = i % 3;
+
+		if(testval1 == 0) {
+			rwlock_acquire_read(testrwlock);
+			kprintf("Thread %2lu: reader : count value %d \n",num,cnt);
+			rwlock_release_read(testrwlock);
+		} 
+		else {		
+			rwlock_acquire_write(testrwlock);
+			cnt = cnt + 1;
+			kprintf("Thread %2lu: writer : count value %d \n",num,cnt);
+			rwlock_release_write(testrwlock);
+		}
+
+	
+	}
+
+	kprintf("\n");
+	V(donesem);
+
+}
+
+int 
+rwtest(int nargs, char **args) {
+
+	(void)nargs;
+	(void)args;
+	int i,result;	
+
+	inititems();
+
+	kprintf("Starting RW test ....\n");
+	kprintf("Reader will read the count value while writer will write value \n");
+
+	for (i=0; i<NTHREADS; i++) {
+		result = thread_fork("rwtest", rwtestthread , NULL, i,
+				      NULL);
+		if (result) {
+			panic("rwtest: thread_fork failed: %s\n",
+			      strerror(result));
+		}
+	}
+	for (i=0; i<NTHREADS; i++) {
+		P(donesem);
+	}
+
+	kprintf("RW test done\n");
+
+	return 0;
+
+
 }
 
 int

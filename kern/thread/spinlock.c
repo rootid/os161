@@ -78,6 +78,12 @@ spinlock_acquire(struct spinlock *lk)
 
 	/* this must work before curcpu initialization */
 	if (CURCPU_EXISTS()) {
+		//Pandhari : This block of code is to restrict use of spinlock_acquire() 
+		//1.in signal like V(),cv_signal(),lock_release()
+		//2.Before using it consider about intrathread synchronization 
+		//because in this scenario you have CPU with you 
+		//This situation like person trying to cut branch
+		//by sitting on the same branch.
 		mycpu = curcpu->c_self;
 		if (lk->lk_holder == mycpu) {
 			panic("Deadlock on spinlock %p\n", lk);

@@ -50,22 +50,26 @@
 struct semaphore *mSemaphore;
 struct semaphore *fSemaphore;
 struct semaphore *kSemaphore;
-struct semaphore *oSemaphore;
-struct semaphore *mbSemaphore;
-struct semaphore *fbSemaphore;
-struct semaphore *kbSemaphore;
-struct semaphore *sSemaphore;
+struct semaphore *mcSemaphore;
+struct semaphore *fcSemaphore;
+struct semaphore *kcSemaphore;
+struct semaphore *ecSemaphore;
+int male_cnt;
+int female_cnt;
+int matchmaker_cnt;
 
 void whalemating_init() {
   //create the semaphore
-  mSemaphore =  sem_create("male waiting semaphore", 0);
-  fSemaphore =  sem_create("female waiting semaphore", 0);
-  kSemaphore =  sem_create("Matcher waiting semaphore", 0);
-  oSemaphore =  sem_create("Matcher waiting semaphore", 1);
-  mbSemaphore =  sem_create("male blocking semaphore", 1);
-  fbSemaphore =  sem_create("femal blocking semaphore",1);
-  kbSemaphore =  sem_create("Match blocking semaphore", 1);
-  sSemaphore =  sem_create("Match serial semaphore", 1);
+  mSemaphore = sem_create("Male semaphore",1);
+  fSemaphore = sem_create("Female semaphore",1);
+  kSemaphore = sem_create("MM semaphore",1);
+  mcSemaphore = sem_create("Male enter semaphore",0);
+  fcSemaphore = sem_create("FeMale enter semaphore",0);
+  kcSemaphore = sem_create("MM enter semaphore",0);
+  ecSemaphore = sem_create("End semaphore",1);
+  male_cnt = 0;
+  female_cnt = 0;
+  matchmaker_cnt = 0;
   return;
 }
 
@@ -73,35 +77,61 @@ void whalemating_init() {
 // care if your problems leak memory, but if you do, use this to clean up.
 
 void whalemating_cleanup() {
-  return;
+	
+//	kfree(mSemaphore);
+//	kfree(fSemaphore); 
+//	kfree(kSemaphore);
+//	kfree(mcSemaphore); 
+//	kfree(fcSemaphore);
+//	kfree(kcSemaphore);
+//	kfree(ecSemaphore);  
+//
+//	mSemaphore  = NULL;
+//	fSemaphore  = NULL; 
+//	kSemaphore  = NULL;
+//	mcSemaphore = NULL;
+//	fcSemaphore = NULL;
+//	kcSemaphore = NULL;
+//	ecSemaphore = NULL;
+
+	return;
 }
 
 void
 male(void *p, unsigned long which)
 {
-	struct semaphore * whalematingMenuSemaphore = (struct semaphore *)p;
+  struct semaphore * whalematingMenuSemaphore = (struct semaphore *)p;
   (void)which;	
  
-  V(whalematingMenuSemaphore);
-  P(mbSemaphore);
+  P(mSemaphore);
   
-  P(oSemaphore); 
+  //provide atomic operation 
+  P(ecSemaphore);
   male_start();
-  V(oSemaphore); 
+  V(ecSemaphore);
   
-  V(mSemaphore);
-  V(mSemaphore); 
-  //wait for female and matchmaker 
-  
-  P(fSemaphore);
-  P(kSemaphore);
+  V(whalematingMenuSemaphore);
 
-  P(oSemaphore); 
+  //wait for female and matchmaker to start
+  V(mcSemaphore); 
+  V(mcSemaphore); 
+  P(fcSemaphore);
+  P(kcSemaphore);
+  
+  //provide atomic operation 
+  P(ecSemaphore);
+  male_cnt ++;
   male_end();
-  V(oSemaphore); 
+  V(ecSemaphore);
  
-  //P(sSemaphore);
-  V(mbSemaphore); 
+  //wait for female and matchmaker to end
+  V(mcSemaphore);
+  V(mcSemaphore);
+  P(fcSemaphore);
+  P(kcSemaphore);
+ 
+ //if(male_cnt < 9) 
+  V(mSemaphore); 
 
   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
   // whalemating driver can return to the menu cleanly.
@@ -114,24 +144,32 @@ female(void *p, unsigned long which)
 	struct semaphore * whalematingMenuSemaphore = (struct semaphore *)p;
   (void)which;
   
-  V(whalematingMenuSemaphore);
-  P(fbSemaphore);
-  P(oSemaphore); 
+  P(fSemaphore);
+  
+  P(ecSemaphore);
   female_start();
-  V(oSemaphore); 
+  V(ecSemaphore);
   
-  V(fSemaphore);
-  V(fSemaphore);  
+  V(whalematingMenuSemaphore);
+
+  V(fcSemaphore); 
+  V(fcSemaphore); 
+  P(mcSemaphore);
+  P(kcSemaphore);
   
-  P(mSemaphore); 
-  P(kSemaphore); 
-  
-  P(oSemaphore); 
+  P(ecSemaphore);
+  female_cnt++;
   female_end();
-  V(oSemaphore); 
-  
-  //V(sSemaphore);
-  V(fbSemaphore);
+  V(ecSemaphore);
+
+  V(fcSemaphore); 
+  V(fcSemaphore); 
+  P(mcSemaphore);
+  P(kcSemaphore);
+ 
+  if(female_cnt <= 9)
+  V(fSemaphore);
+
   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
   // whalemating driver can return to the menu cleanly.
   return;
@@ -143,22 +181,32 @@ matchmaker(void *p, unsigned long which)
 	struct semaphore * whalematingMenuSemaphore = (struct semaphore *)p;
   (void)which;
   
-  V(whalematingMenuSemaphore);
-  P(kbSemaphore);
-  P(oSemaphore); 
+  P(kSemaphore);
+
+  P(ecSemaphore);
   matchmaker_start();
-  V(oSemaphore); 
+  V(ecSemaphore);
 
-  V(kSemaphore);
-  V(kSemaphore);
-  P(mSemaphore);
-  P(fSemaphore);
+  V(whalematingMenuSemaphore);
 
-  P(oSemaphore); 
+  V(kcSemaphore); 
+  V(kcSemaphore); 
+  P(mcSemaphore);
+  P(fcSemaphore);
+  
+  P(ecSemaphore);
+  matchmaker_cnt ++;
   matchmaker_end();
-  V(oSemaphore); 
+  V(ecSemaphore);
+  
+  V(kcSemaphore); 
+  V(kcSemaphore); 
+  P(mcSemaphore);
+  P(fcSemaphore);
 
-  V(kbSemaphore); 
+  if(matchmaker_cnt <= 9)
+  V(kSemaphore); 
+  
   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
   // whalemating driver can return to the menu cleanly.
   return;
@@ -195,7 +243,64 @@ matchmaker(void *p, unsigned long which)
 // functions will allow you to do local initialization. They are called at
 // the top of the corresponding driver code.
 
+struct semaphore *zeroSemaphore;
+struct semaphore *oneSemaphore;
+struct semaphore *twoSemaphore;
+struct semaphore *threeSemaphore;
+
+
+//helper functions
+
+int 
+get_self(int dir) {
+	//As modular is costlier operation,just return direction
+	return dir;
+}
+
+int 
+get_self_front(int dir) {
+	return (dir + 3) % 4;
+}
+int 
+get_self_left(int dir) {
+	return (dir + 1) % 4;
+}
+int 
+get_self_cross(int dir) {
+	return (dir + 2) % 4;
+}
+
+struct semaphore *
+get_dir_semaphore(int dir) {
+
+	if(0 ==  dir) {
+	  return  zeroSemaphore;  
+	}
+	else if(1 ==  dir) {
+	  return oneSemaphore;  
+	}
+	else if(2 ==  dir) {
+	  return  twoSemaphore;  
+	}
+	else if(3 ==  dir) {
+	  return  threeSemaphore;  
+	}
+	return NULL;
+
+}
+
+struct lock *lk_strt;
+struct lock *lk_lt;
+struct lock *lk_rt;
+
 void stoplight_init() {
+  zeroSemaphore  = sem_create("zero",1);
+  oneSemaphore   = sem_create("one",1);
+  twoSemaphore   = sem_create("two",1);
+  threeSemaphore = sem_create("three",1);
+  lk_strt = lock_create("straight");
+  lk_lt = lock_create("left");
+  lk_rt = lock_create("right");
   return;
 }
 
@@ -209,35 +314,81 @@ void stoplight_cleanup() {
 void
 gostraight(void *p, unsigned long direction)
 {
-	struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
-  (void)direction;
+  struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
   
   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
   // stoplight driver can return to the menu cleanly.
+  
+  // To go straight follow self,self_front
+  lock_acquire(lk_strt);
   V(stoplightMenuSemaphore);
+  int iDir = (int)direction;
+  int x = get_self(iDir);	
+  int y = get_self_front(iDir);
+  struct semaphore * x_sem = get_dir_semaphore(x);
+  struct semaphore * y_sem = get_dir_semaphore(y);
+  P(x_sem);
+  inQuadrant(x);
+  P(y_sem);
+  inQuadrant(y);
+  V(x_sem);
+  leaveIntersection();
+  V(y_sem);
+  lock_release(lk_strt);
   return;
 }
 
 void
 turnleft(void *p, unsigned long direction)
 {
-	struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
-  (void)direction;
+  struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
+  
   
   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
   // stoplight driver can return to the menu cleanly.
+  
+  // To go left follow self,self_front,self_cross
+  lock_acquire(lk_lt);
   V(stoplightMenuSemaphore);
+  int iDir = (int)direction;
+  int x = get_self(iDir);	
+  int y = get_self_front(iDir);
+  int z = get_self_cross(iDir);
+  struct semaphore * x_sem = get_dir_semaphore(x);
+  struct semaphore * y_sem = get_dir_semaphore(y);
+  struct semaphore * z_sem = get_dir_semaphore(z);
+  P(x_sem);
+  inQuadrant(x);
+  P(y_sem);
+  inQuadrant(y);
+  V(x_sem);
+  P(z_sem);
+  inQuadrant(z);
+  V(y_sem);
+  leaveIntersection();
+  V(z_sem);
+  lock_release(lk_lt);
   return;
 }
 
 void
 turnright(void *p, unsigned long direction)
 {
-	struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
-  (void)direction;
-
+  struct semaphore * stoplightMenuSemaphore = (struct semaphore *)p;
+  
   // 08 Feb 2012 : GWA : Please do not change this code. This is so that your
   // stoplight driver can return to the menu cleanly.
+  
+  // To go right follow self
+  lock_acquire(lk_rt);
   V(stoplightMenuSemaphore);
+  int iDir = (int)direction;
+  int x = get_self(iDir);	
+  struct semaphore * x_sem = get_dir_semaphore(x);
+  P(x_sem);
+  inQuadrant(x);
+  leaveIntersection();
+  V(x_sem);
+  lock_release(lk_rt);
   return;
 }

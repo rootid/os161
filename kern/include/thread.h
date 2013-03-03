@@ -98,7 +98,7 @@ struct thread {
 	 * rather than per-cpu or global?
 	 */
 	/***********
-	 * Pandhari : used in wchan_sleep,P() i.e in short for blocking calls
+	 * Pandhari : used in wchan_sleep,P() i.e in short, for blocking calls
 	 ********/
 	bool t_in_interrupt;		/* Are we in an interrupt? */
 	int t_curspl;			/* Current spl*() state */
