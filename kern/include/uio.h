@@ -111,7 +111,7 @@ int uiomovezeros(size_t len, struct uio *uio);
  * 	char buf[128];
  * 	struct iovec iov;
  * 	struct uio myuio;
- *
+ *      UIO_READ : From kernel to io segment
  * 	uio_kinit(&iov, &myuio, buf, sizeof(buf), 0, UIO_READ);
  *      result = VOP_READ(vn, &myuio);
  *      ...

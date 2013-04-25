@@ -5,10 +5,13 @@ import os
 path = "/home/trinity/src/kern/conf"
 os.chdir(path)
 print os.getcwd()
-status, output = commands.getstatusoutput("./config ASST1") 
+status, output = commands.getstatusoutput("./config ASST2") 
+"""
+  TODO : To use above option ./config ASST1 defoption <> option debug
+"""
 print status
 print output
-path = "/home/trinity/src/kern/compile/ASST1/"
+path = "/home/trinity/src/kern/compile/ASST2/"
 os.chdir(path)
 print os.getcwd()
 status, text = commands.getstatusoutput('bmake depend')

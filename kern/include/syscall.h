@@ -30,7 +30,6 @@
 #ifndef _SYSCALL_H_
 #define _SYSCALL_H_
 
-
 struct trapframe; /* from <machine/trapframe.h> */
 
 /*
@@ -44,7 +43,7 @@ void syscall(struct trapframe *tf);
  */
 
 /* Helper for fork(). You write this. */
-void enter_forked_process(struct trapframe *tf);
+void enter_forked_process(void *tf,unsigned long adr_space);
 
 /* Enter user mode. Does not return. */
 void enter_new_process(int argc, userptr_t argv, vaddr_t stackptr,
@@ -54,8 +53,38 @@ void enter_new_process(int argc, userptr_t argv, vaddr_t stackptr,
 /*
  * Prototypes for IN-KERNEL entry points for system call implementations.
  */
-
 int sys_reboot(int code);
 int sys___time(userptr_t user_seconds, userptr_t user_nanoseconds);
+
+/**
+ * Pandhari : File system support
+ * Note : we need to return 2 things compulsorily
+ * 1.return value : 1/0
+ * 2.return code : listed in errno.h
+ * 
+ *
+ **/
+int init_file_system(void);
+int sys_open(char *file_name, int flag, mode_t mode,int *retval);
+int sys_dup2(int oldfd, int newfd,int *retval);
+int sys_close(int fd,int *retval);
+int sys_read(int fd, void *buf, size_t buflen,int *retval);
+int sys_write(int fd, void *buf, size_t buflen,int *retval);
+int sys_lseek(int fd, off_t pos, int code,off_t *retval);
+int sys_chdir(char *u_path,int *retval);
+int sys__getcwd(char *buf, size_t buflen,int *retval);
+
+/**
+ * Pandhari : process support
+ *
+ **/
+int sys_fork(void (*entrypoint)(void *data1, unsigned long data2),
+	     void *data1, unsigned long data2,int *ret_pid);
+int sys_execv(const char *prog, char *const *args);
+int sys__exit(int code);
+int sys_waitpid(pid_t pid, int *returncode, int flags);
+int sys_getpid(int *ret_pid);
+int sys_getppid(int *ret_ppid);
+int sys_sbrk(size_t change);
 
 #endif /* _SYSCALL_H_ */

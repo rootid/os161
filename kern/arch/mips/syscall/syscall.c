@@ -35,8 +35,7 @@
 #include <thread.h>
 #include <current.h>
 #include <syscall.h>
-
-
+#include <copyinout.h>
 /*
  * System call dispatcher.
  *
@@ -81,6 +80,9 @@ syscall(struct trapframe *tf)
 	int callno;
 	int32_t retval;
 	int err;
+	off_t offset = 0;
+	off_t ret_off = 0;
+	int code = 0;
 
 	KASSERT(curthread != NULL);
 	KASSERT(curthread->t_curspl == 0);
@@ -110,6 +112,72 @@ syscall(struct trapframe *tf)
 		break;
 
 	    /* Add stuff here */
+	 
+	   /**
+	    * Pandhari : Process support
+	    **/
+	    case SYS_fork:
+		sys_fork(enter_forked_process,tf,(unsigned long)curthread->t_addrspace,&retval);
+		break;
+	    case SYS_execv:
+		break;
+	    case SYS__exit:
+		break;
+	    case SYS_waitpid:
+		break;
+	    case SYS_getpid:
+		//NO error code
+		break;
+	    case SYS_getppid:
+		//No error code
+		break;
+	    case SYS_sbrk:
+		break;
+	
+	  /**
+	   * Pandhari : File system support
+	   **/
+	    case SYS_open:
+		err = sys_open((char*)tf->tf_a0,tf->tf_a1,(mode_t)tf->tf_a2,&retval);
+		break;
+	    case SYS_dup2:
+		err = sys_dup2(tf->tf_a0,tf->tf_a1,&retval);
+		break;
+	    case SYS_close:
+		err = sys_close(tf->tf_a0,&retval);
+		break;
+	    case SYS_read:
+		err = sys_read(tf->tf_a0,(userptr_t)tf->tf_a1,tf->tf_a2,&retval);
+		break;
+	    case SYS_write:
+		err = sys_write((int)tf->tf_a0,(userptr_t)tf->tf_a1,tf->tf_a2,&retval);
+		break;
+	    
+	    case SYS_lseek:
+		//Curious case of lseek
+		//off_t is 64 bit so we have to make some adjustment .offset is present in tf->tf_a2(32 bit) and tf->tf_a3(32 bit)
+		offset |= tf->tf_a2;
+		offset <<= 32;
+		offset |= tf->tf_a3;
+		err = copyin((const_userptr_t)tf->tf_sp+16,&code,sizeof(int));
+		if(!err) {
+			err = sys_lseek(tf->tf_a0,offset,code,&ret_off);
+		}
+		if(!err) {
+			//unpack to v0 and v1
+			//lower 32 bit
+			retval = ret_off >> 32;
+			//higher 32 bit
+			tf->tf_v1 = ret_off;
+		}
+
+		break;
+	    case SYS_chdir:
+		err=sys_chdir((char*)tf->tf_a0,&retval);
+		break;
+	    case SYS___getcwd:
+		err = sys__getcwd((char*)tf->tf_a0,(size_t)tf->tf_a1,&retval);
+		break;
  
 	    default:
 		kprintf("Unknown syscall %d\n", callno);
@@ -155,7 +223,11 @@ syscall(struct trapframe *tf)
  * Thus, you can trash it and do things another way if you prefer.
  */
 void
-enter_forked_process(struct trapframe *tf)
+enter_forked_process(void *tf1,unsigned long adr_space)
 {
-	(void)tf;
+	(void) adr_space;
+	struct trapframe *tf = (struct trapframe*) tf1;
+	struct trapframe* ctf = (struct trapframe*)kmalloc(sizeof(struct trapframe));	
+	*ctf = *tf; // tf points to parent's trapframe;
+	tf->tf_epc += 4;
 }

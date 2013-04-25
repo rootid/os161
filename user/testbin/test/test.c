@@ -27,33 +27,42 @@
  * SUCH DAMAGE.
  */
 
-#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
-#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <err.h>
-#include <limits.h>
 
 /*
- * pwd - print working directory.
- * Usage: pwd
+ * test - create a directory.
+ * Tasks : To verify following functionality
+ * 	   1.open :int open(const char *filename, int flags, ...);
+ * 	   2.read :int read(int filehandle, void *buf, size_t size);
+ * 	   3.write:int write(int filehandle, const void *buf, size_t size);
+      
+ * 	   4.lseek:off_t lseek(int filehandle, off_t pos, int code);
+ * 	   5.close:int close(int filehandle);
+ * 	   6.dup2 :int dup2(int filehandle, int newhandle);
+ * 	   7.chdir:int chdir(const char *path);
+ * 	   8.getcwd:int __getcwd(char *buf, size_t buflen);
+ * Usage: test : any number of parameter
  *
- * Just uses the getcwd library call (which in turn uses the __getcwd
- * system call.)
  */
 
 int
-main()
+main(int argc, char *argv[])
 {
-	char buf[PATH_MAX+1], *p;
-	int ret = chdir("/etc");
 
-	if(ret != 0)  {
-		printf("chdir fails \n");	
-	}
-	p = getcwd(buf, sizeof(buf));
-	if (p == NULL) {
-		err(1, ".");
-	}
-	printf("%s\n", buf);
+	//int i =0;	
+	char buf[64];
+	(void) argc;
+	(void) argv;
+	//printf("\nall the passed parameters\n");	
+	//for(i=0;i<argc;i++) {
+	//	printf("\n %s",argv[i]);	
+	//}
+	int ret = __getcwd(buf,64);
+	printf("\n %d",ret);	
 	return 0;
 }

@@ -55,5 +55,6 @@ main()
 		err(1, ".");
 	}
 	printf("%s\n", buf);
+
 	return 0;
 }

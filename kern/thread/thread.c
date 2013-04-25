@@ -118,6 +118,7 @@ struct thread *
 thread_create(const char *name)
 {
 	struct thread *thread;
+	int index;
 
 	DEBUGASSERT(name != NULL);
 
@@ -154,6 +155,12 @@ thread_create(const char *name)
 
 	/* If you add to struct thread, be sure to initialize here */
 
+	//Initilaze file table other than stdin,out and stderror
+	for(index = 3;index<MAX_FD_SIZE;index++) {
+		thread->pt_fd[index] = NULL;
+	}
+	//thread->t_fd_cnt = 3;
+	
 	return thread;
 }
 
@@ -466,6 +473,8 @@ thread_make_runnable(struct thread *target, bool already_have_lock)
 }
 
 /*
+ *
+ * It acts as guide point for the fork
  * Create a new thread based on an existing one.
  *
  * The new thread has name NAME, and starts executing in function

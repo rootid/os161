@@ -66,14 +66,14 @@ main(int argc, char **argv)
 
 	// 23 Mar 2012 : GWA : Test that open works.
 
-	printf("Opening %s\n", filename);
+	//printf("Opening %s\n", filename);
 
 	fh = open(filename, O_RDWR|O_CREAT|O_TRUNC);
 	if (fh < 0) {
 		err(1, "create failed");
 	}
 	
-	printf("Writing %d bytes.\n", BUFFER_SIZE * BUFFER_COUNT);
+	//printf("Writing %d bytes.\n", BUFFER_SIZE * BUFFER_COUNT);
 
   // 23 Mar 2012 : GWA : Do the even-numbered writes. Test read() and
   // lseek(SEEK_END).
@@ -84,6 +84,7 @@ main(int argc, char **argv)
 		}
 		len = write(fh, writebuf, sizeof(writebuf));
 		if (len != sizeof(writebuf)) {
+			printf( "len = %d \t writebuf = %d\n",len,sizeof(writebuf));
 			err(1, "write failed");
 		}
 

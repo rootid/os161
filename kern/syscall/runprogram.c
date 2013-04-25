@@ -77,7 +77,8 @@ runprogram(char *progname)
 	/* Activate it. */
 	as_activate(curthread->t_addrspace);
 
-	/* Load the executable. */
+	/* Load the executable. 
+	 * from filesystem into virtual memory space*/
 	result = load_elf(v, &entrypoint);
 	if (result) {
 		/* thread_exit destroys curthread->t_addrspace */

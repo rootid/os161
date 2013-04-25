@@ -38,6 +38,7 @@
 
 #include <spinlock.h>
 #include <threadlist.h>
+#include<limits.h>
 
 struct addrspace;
 struct cpu;
@@ -49,7 +50,9 @@ struct vnode;
 
 /* Size of kernel stacks; must be power of 2 */
 #define STACK_SIZE 4096
-
+#define MAX_FD_SIZE 64 
+#define IN_USE 1
+#define NOT_IN_USE 0
 /* Mask for extracting the stack base address of a kernel stack pointer */
 #define STACK_MASK  (~(vaddr_t)(STACK_SIZE-1))
 
@@ -65,6 +68,31 @@ typedef enum {
 	S_ZOMBIE,	/* zombie; exited but not yet deleted */
 } threadstate_t;
 
+/**
+ *Entry start from p acts is pointer
+ *without p acts as normal variable;
+ * 
+ * **/
+struct file_table {
+	char file_name[NAME_MAX+1];	
+	//vnode contains vn_opencount and vn_refcount
+	struct vnode *pv_node;
+	off_t offset;	
+	struct lock *f_lock;
+		
+};
+
+//struct thread_book is used for book-keeping
+struct thread_book{
+	unsigned valid : 1;
+	pid_t ppid;
+	//0 : existed 
+	//1 : not existed
+	int exit_code;
+	struct semaphore *t_sem;
+};
+
+
 /* Thread structure. */
 struct thread {
 	/*
@@ -74,6 +102,7 @@ struct thread {
 	char *t_name;			/* Name of this thread */
 	const char *t_wchan_name;	/* Name of wait channel, if sleeping */
 	threadstate_t t_state;		/* State this thread is in */
+	pid_t pid;
 
 	/*
 	 * Thread subsystem internal fields.
@@ -115,7 +144,9 @@ struct thread {
 	struct vnode *t_cwd;		/* current working directory */
 
 	/* add more here as needed */
+	struct file_table *pt_fd[MAX_FD_SIZE];
 };
+
 
 /* Call once during system startup to allocate data structures. */
 void thread_bootstrap(void);

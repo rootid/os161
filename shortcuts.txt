@@ -1,0 +1,4 @@
+Debug fast with :
+sys161 -w kernel "sy1;"
+To run only specific test cases
+sys161 kernel "tt1;q"

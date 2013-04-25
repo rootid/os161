@@ -254,6 +254,7 @@ common_exception:
 
    /*
     * Prepare to call mips_trap(struct trapframe *)
+    * mips_trap is exception handler routine
     */
 
    addiu a0, sp, 16             /* set argument - pointer to the trapframe */
