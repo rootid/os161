@@ -105,7 +105,7 @@ sys_open(char* u_path, int flag, mode_t mode,int *retval){
 	//(void) u_path;
 	//(void) flag;	//RWX 
 	//(void) mode; //USER_MODE,GROUP
-	int result;
+	int result = 0;
 	//0 : STDIN 1:STDOUT 2:STDERROR
 	int index = 3;
 	char dest[PATH_MAX + 1];
@@ -267,9 +267,6 @@ sys_write(int fd, void *buf, size_t buflen,int *retval) {
             *retval = EBADF;
             return (1);
     }
-
-    vn = curthread->pt_fd[fd]->pv_node;
-
     //Allocate the structure
     kbuf = kmalloc(sizeof(*buf) * buflen);
 
@@ -282,6 +279,8 @@ sys_write(int fd, void *buf, size_t buflen,int *retval) {
 
     //no append functiality
     uio_kinit(&_iov,&_uio,kbuf,buflen,curthread->pt_fd[fd]->offset,UIO_WRITE);
+    
+    vn = curthread->pt_fd[fd]->pv_node;
    
     result = VOP_WRITE(vn,&_uio);
     

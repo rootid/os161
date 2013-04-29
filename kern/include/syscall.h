@@ -79,12 +79,14 @@ int sys__getcwd(char *buf, size_t buflen,int *retval);
  *
  **/
 int sys_fork(void (*entrypoint)(void *data1, unsigned long data2),
-	     void *data1, unsigned long data2,int *ret_pid);
-int sys_execv(const char *prog, char *const *args);
-int sys__exit(int code);
-int sys_waitpid(pid_t pid, int *returncode, int flags);
-int sys_getpid(int *ret_pid);
-int sys_getppid(int *ret_ppid);
-int sys_sbrk(size_t change);
+	     struct trapframe *data1, unsigned long data2,int *retval);
+int sys_execv(char *prog, char **argv,int *retval);
+int sys__exit(int *retval);
+int sys_waitpid(pid_t pid, int *status, int option,int *retval);
+int sys_getpid(pid_t *retval);
+int sys_getppid(pid_t *retval);
+int sys_sbrk(size_t change,int *retval);
+int get_local_pid(void);
+void init_process(int id,int ppid);
 
 #endif /* _SYSCALL_H_ */

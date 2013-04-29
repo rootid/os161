@@ -50,10 +50,10 @@ struct vnode;
 
 struct addrspace {
 #if OPT_DUMBVM
-        vaddr_t as_vbase1;
+        vaddr_t as_vbase1; //text segment
         paddr_t as_pbase1;
         size_t as_npages1;
-        vaddr_t as_vbase2;
+        vaddr_t as_vbase2; //data segment
         paddr_t as_pbase2;
         size_t as_npages2;
         paddr_t as_stackpbase;

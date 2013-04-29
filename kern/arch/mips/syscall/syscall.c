@@ -36,6 +36,12 @@
 #include <current.h>
 #include <syscall.h>
 #include <copyinout.h>
+#include <current.h>
+#include <vm.h>
+#include <addrspace.h>
+#include <thread.h>
+
+#define THREAD_STACK_MAGIC 0xbaadf00d
 /*
  * System call dispatcher.
  *
@@ -79,7 +85,7 @@ syscall(struct trapframe *tf)
 {
 	int callno;
 	int32_t retval;
-	int err;
+	int err = 0;
 	off_t offset = 0;
 	off_t ret_off = 0;
 	int code = 0;
@@ -117,21 +123,27 @@ syscall(struct trapframe *tf)
 	    * Pandhari : Process support
 	    **/
 	    case SYS_fork:
-		sys_fork(enter_forked_process,tf,(unsigned long)curthread->t_addrspace,&retval);
+		err = sys_fork(enter_forked_process,tf,(unsigned long)curthread->t_addrspace,&retval);
 		break;
 	    case SYS_execv:
+		err = sys_execv((char*)tf->tf_a0,(char **)tf->tf_a1,&retval);
 		break;
 	    case SYS__exit:
+		err = sys__exit(&retval);
 		break;
 	    case SYS_waitpid:
+		err = sys_waitpid((pid_t)tf->tf_a0,0,0,&retval);
 		break;
 	    case SYS_getpid:
+		 sys_getpid(&retval);
 		//NO error code
 		break;
 	    case SYS_getppid:
 		//No error code
+		 sys_getppid(&retval);
 		break;
 	    case SYS_sbrk:
+		err = sys_sbrk((size_t)tf->tf_a0,&retval);
 		break;
 	
 	  /**
@@ -173,7 +185,7 @@ syscall(struct trapframe *tf)
 
 		break;
 	    case SYS_chdir:
-		err=sys_chdir((char*)tf->tf_a0,&retval);
+		err = sys_chdir((char*)tf->tf_a0,&retval);
 		break;
 	    case SYS___getcwd:
 		err = sys__getcwd((char*)tf->tf_a0,(size_t)tf->tf_a1,&retval);
@@ -214,6 +226,17 @@ syscall(struct trapframe *tf)
 	KASSERT(curthread->t_iplhigh_count == 0);
 }
 
+//static
+//void
+//thread_checkstack(struct thread *thread)
+//{
+//	if (thread->t_stack != NULL) {
+//		KASSERT(((uint32_t*)thread->t_stack)[0] == THREAD_STACK_MAGIC);
+//		KASSERT(((uint32_t*)thread->t_stack)[1] == THREAD_STACK_MAGIC);
+//		KASSERT(((uint32_t*)thread->t_stack)[2] == THREAD_STACK_MAGIC);
+//		KASSERT(((uint32_t*)thread->t_stack)[3] == THREAD_STACK_MAGIC);
+//	}
+//}
 /*
  * Enter user mode for a newly forked process.
  *
@@ -226,8 +249,51 @@ void
 enter_forked_process(void *tf1,unsigned long adr_space)
 {
 	(void) adr_space;
+	int result = 0;
 	struct trapframe *tf = (struct trapframe*) tf1;
-	struct trapframe* ctf = (struct trapframe*)kmalloc(sizeof(struct trapframe));	
-	*ctf = *tf; // tf points to parent's trapframe;
-	tf->tf_epc += 4;
+	struct trapframe ctf ;
+
+	//struct trapframe *ctf = (struct trapframe*)kmalloc(sizeof(struct trapframe));	Don't know why pointer did not work but variable worked  //TODO : Investigate this
+	//One logical  thing is we must do it on the stack not on the heap
+	//bzero(ctf,sizeof(struct trapframe));
+	//thread_checkstack(curthread);
+	memcpy(&ctf,tf,sizeof(struct trapframe));
+	kfree(tf);
+	tf = NULL;
+	
+	curthread->t_addrspace = 0;
+	curthread->pid = ctf.tf_a0;
+	
+	//copy and load address
+	//this is necessay for succesive fork see the line number 106 @ kern/syscall/ps_syscalls.c
+	//else you will get NULL in curthread
+	result = as_copy((struct addrspace*)adr_space,&(curthread->t_addrspace));
+	if(result) {
+		ctf.tf_v0 = ENOMEM;
+		ctf.tf_a3 = 1;     
+	} 	
+ 	as_activate(curthread->t_addrspace);
+
+	result = init_file_system();
+	if(result) {
+		ctf.tf_v0 = ENOMEM;
+		ctf.tf_a3 = 1;     
+	} 	
+
+	//vaddr_t stackptr;
+	//Not use as_define_stack as we get error TLB miss on load
+	//Reasons : TO use as define stack
+	//result = as_define_stack(curthread->t_addrspace, &stackptr);
+	//if (result) {
+	//	/* thread_exit destroys curthread->t_addrspace */
+	//}
+	ctf.tf_v0 = 0;
+	ctf.tf_a3 = 0;     
+	//ctf.tf_sp = stackptr;
+	ctf.tf_epc += 4;
+	
+	//copy the thread or
+	//as_define_stack copy from curthread and assign
+	mips_usermode(&ctf);
+	//mips_usermode(ctf);
 }

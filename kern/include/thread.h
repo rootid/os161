@@ -50,9 +50,11 @@ struct vnode;
 
 /* Size of kernel stacks; must be power of 2 */
 #define STACK_SIZE 4096
-#define MAX_FD_SIZE 64 
+#define MAX_FD_SIZE 32
 #define IN_USE 1
 #define NOT_IN_USE 0
+#define NOT_EXIT 1
+#define EXIT 0
 /* Mask for extracting the stack base address of a kernel stack pointer */
 #define STACK_MASK  (~(vaddr_t)(STACK_SIZE-1))
 
@@ -86,10 +88,10 @@ struct file_table {
 struct thread_book{
 	unsigned valid : 1;
 	pid_t ppid;
-	//0 : existed 
-	//1 : not existed
-	int exit_code;
-	struct semaphore *t_sem;
+	int exit_code;	//supplied by user HOW TO TRUST USER?
+	int child_cnt; //always init to 1
+	struct semaphore *enter_sem;
+	struct semaphore *exit_sem;
 };
 
 
@@ -159,7 +161,6 @@ void thread_panic(void);
 
 /* Call during system shutdown to offline other CPUs. */
 void thread_shutdown(void);
-
 /*
  * Make a new thread, which will start executing at "func". The "data"
  * arguments (one pointer, one number) are passed to the function. The

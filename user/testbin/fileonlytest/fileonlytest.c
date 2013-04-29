@@ -66,7 +66,7 @@ main(int argc, char **argv)
 
 	// 23 Mar 2012 : GWA : Test that open works.
 
-	//printf("Opening %s\n", filename);
+	printf("Opening %s\n", filename);
 
 	fh = open(filename, O_RDWR|O_CREAT|O_TRUNC);
 	if (fh < 0) {

@@ -28,33 +28,73 @@
  */
 
 /*
- * Simple program to add two numbers (given in as arguments). Used to
- * test argument passing to child processes.
- *
- * Intended for the basic system calls assignment; this should work
- * once execv() argument handling is implemented.
+ *calls to execv()
  */
 
-#include <stdio.h>
+#include <sys/types.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
 #include <err.h>
 
-/**
- * It takes to string input as testbin/add 23 43
- * **/
+static
 int
-main(int argc, char *argv[])
+exec_common_fork(void)
 {
-	int i, j;
+	int pid, rv, status;
 
-	if (argc != 3) {
-		errx(1, "Usage: add num1 num2");
+	pid = fork();
+	if (pid<0) {
+		warn("UH-OH: fork failed");
+		return -1;
+	}
+	
+	if (pid==0) {
+		/* child */
+		return 0;
 	}
 
-	i = atoi(argv[1]);
-	j = atoi(argv[2]);
+	rv = waitpid(pid, &status, 0);
+	if (rv == -1) {
+		warn("UH-OH: waitpid failed");
+		return -1;
+	}
+	//if (!WIFEXITED(status) || WEXITSTATUS(status) != 107) {
+	//	warnx("FAILURE: wrong exit code of subprocess");
+	//}
+	return 1;
+}
+static
+void
+exec_goodargs (char **args) {
 
-	printf("Answer: %d\n", i+j);
+	int rv;
+	(void) args;	
+	//(void) desc;
+	if (exec_common_fork() != 0) {
+		return;
+	}
+	//char t[3];
+	//strcpy(t,"12");
+	rv = execv("/testbin/add_test", NULL);
+	//rv = execv("/bin/true", args);
+	exit(107);
 
-	return 0;
+}
+
+static
+void
+test_execv(void)
+{
+	char **argv = 0 ;
+	//= (char**) malloc (sizeof(char));
+	//argv[0] = (char*)malloc(sizeof(char)*4);
+	//argv[1] = (char*)malloc(sizeof(char)*4);
+	exec_goodargs(argv );
+}
+
+int 
+main() {
+	test_execv();	
+	return (0);
 }
